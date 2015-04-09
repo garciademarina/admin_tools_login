@@ -1,0 +1,66 @@
+#admin_tools_login_footer {
+    position:fixed;
+    text-align: center;
+    left:0px;
+    bottom:0px;
+    height:60px;
+    width:100%;
+    padding:1em;
+    background:#999;
+    padding-top: 0px;
+
+}
+#admin_tools_login_footer .btn-custom {
+    background-color: #55acee;
+    border-color: #000;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.33;
+    border-radius: 6px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-style: normal;
+    font-variant: normal;
+    font-variant-ligatures: normal;
+    font-weight: 600;
+    color:white;
+}
+#admin_tools_login_footer .btn-custom:hover,
+#admin_tools_login_footer .btn-custom:focus,
+#admin_tools_login_footer .btn-custom:active,
+#admin_tools_login_footer .btn-custom.active {
+    background-color: #64a718;
+    border-color: #569015;
+}
+#admin_tools_login_footer .btn-custom.disabled:hover,
+#admin_tools_login_footer .btn-custom.disabled:focus,
+#admin_tools_login_footer .btn-custom.disabled:active,
+#admin_tools_login_footer .btn-custom.disabled.active,
+#admin_tools_login_footer .btn-custom[disabled]:hover,
+#admin_tools_login_footer .btn-custom[disabled]:focus,
+#admin_tools_login_footer .btn-custom[disabled]:active,
+#admin_tools_login_footer .btn-custom[disabled].active,
+fieldset[disabled] #admin_tools_login_footer .btn-custom:hover,
+fieldset[disabled] #admin_tools_login_footer .btn-custom:focus,
+fieldset[disabled] #admin_tools_login_footer .btn-custom:active,
+fieldset[disabled] #admin_tools_login_footer .btn-custom.active {
+    background-color: #71BD1B;
+    border-color: #71BD1B;
+}
