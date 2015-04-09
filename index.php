@@ -9,6 +9,7 @@ Short Name: admin_tools_login
 Plugin update URI: admin-tools-login
 */
 
+osc_add_route('admin_tools_login_as', 'admin_tools_login_as/(\d+)', 'admin_tools_login_as/{user_id}', osc_plugin_folder(__FILE__) . 'empty.php');
 
 function admin_tools_login_footer() {
     if( osc_is_admin_user_logged_in() &&
@@ -25,9 +26,9 @@ function admin_tools_login_footer() {
         <div id="admin_tools_login_footer">
             <p>
                 <?php if (!osc_is_web_user_logged_in()) { ?>
-                    <a class="btn-custom" href="<?php echo osc_user_dashboard_url() . '?user_id=' . osc_user_id(); ?>"><?php _e('Login as', 'admin_tools_login'); ?> [<?php echo osc_user_name(); ?>]</a>
+                    <a class="btn-custom" href="<?php echo osc_route_url('admin_tools_login_as', array('user_id' => osc_user_id())); ?>"><?php _e('Login as', 'admin_tools_login'); ?> [<?php echo osc_user_name(); ?>]</a>
                 <?php } else { ?>
-                    <a class="btn-custom" href="<?php echo osc_user_dashboard_url() . '?logout=' . osc_user_id(); ?>"><?php _e('Logout as', 'admin_tools_login'); ?>  [<?php echo osc_user_name(); ?>]</a>
+                    <a class="btn-custom" href="<?php echo osc_route_url('admin_tools_login_as', array('logout' => osc_user_id())); ?>"><?php _e('Logout as', 'admin_tools_login'); ?> [<?php echo osc_user_name(); ?>]</a>
                 <?php } ?>
             </p>
         </div>
@@ -36,31 +37,10 @@ function admin_tools_login_footer() {
 }
 osc_add_hook('footer', 'admin_tools_login_footer');
 
-function admin_tools_login_init(){
-    /*
-     * Used  /page=user&action=dashboard as endpoint to login as user.
-     */
-    if(osc_is_admin_user_logged_in() && osc_is_user_dashboard()) {
-
-        /* logout */
-        if(Params::getParam('logout')!='') {
-            //destroying session
-            Session::newInstance()->_drop('userId');
-            Session::newInstance()->_drop('userName');
-            Session::newInstance()->_drop('userEmail');
-            Session::newInstance()->_drop('userPhone');
-
-            Cookie::newInstance()->pop('oc_userId');
-            Cookie::newInstance()->pop('oc_userSecret');
-            Cookie::newInstance()->set();
-
-            osc_redirect_to(osc_base_url());
-        }
-
+function admin_tools_login_init() {
+    if( osc_is_admin_user_logged_in() && Params::getParam('route')=='admin_tools_login_as' ) {
         if(Params::getParam('user_id')!='') {
-
             $user = User::newInstance()->findByPrimaryKey( Params::getParam('user_id') );
-
             if( !$user ) {
                 return 0;
             }
@@ -72,10 +52,26 @@ function admin_tools_login_init(){
             $phone = ($user['s_phone_mobile']) ? $user['s_phone_mobile'] : $user['s_phone_land'];
             Session::newInstance()->_set('userPhone', $phone);
 
+            osc_redirect_to(osc_user_dashboard_url());
             return 3;
 
-        }
+        } else {
+            /* logout */
+            if(Params::getParam('logout')!='') {
+                error_log( 'logout in' );
+                //destroying session
+                Session::newInstance()->_drop('userId');
+                Session::newInstance()->_drop('userName');
+                Session::newInstance()->_drop('userEmail');
+                Session::newInstance()->_drop('userPhone');
 
+                Cookie::newInstance()->pop('oc_userId');
+                Cookie::newInstance()->pop('oc_userSecret');
+                Cookie::newInstance()->set();
+
+                osc_redirect_to(osc_base_url());
+            }
+        }
     }
 }
 osc_add_hook('init', 'admin_tools_login_init');
