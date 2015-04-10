@@ -16,11 +16,10 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-SearchPath-0: /Users/ssuareza/htdocs/pysgod/oc-content/plugins/admin_tools_login\n"
 
-#: /Users/ssuareza/htdocs/pysgod/oc-content/plugins/admin_tools_login/index.php:28
-msgid "Login as"
+#: /oc-content/plugins/admin_tools_login/index.php:28
+msgid "Admin Login"
 msgstr ""
 
-#: /Users/ssuareza/htdocs/pysgod/oc-content/plugins/admin_tools_login/index.php:30
-msgid "Logout as"
+#: /oc-content/plugins/admin_tools_login/index.php:30
+msgid "Admin Logout"
 msgstr ""
-
