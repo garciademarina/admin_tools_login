@@ -10,10 +10,10 @@ Plugin update URI: admin-tools-login
 */
 
 // Login Route
-osc_add_route('admin_tools_login_route', 'admin/login/(\d+)', 'admin/login/{user_id}', osc_plugin_folder(__FILE__) . 'index.php');
+osc_add_route('admin_tools_login_login-route', 'admin/login/(\d+)', 'admin/login/{user_id}', osc_plugin_folder(__FILE__) . 'index.php');
 
 // Logout Route
-osc_add_route('admin_tools_logout_route', 'admin/logout/(\d+)', 'admin/logout/{user_id}', osc_plugin_folder(__FILE__) . 'index.php');
+osc_add_route('admin_tools_login_logout-route', 'admin/logout/(\d+)', 'admin/logout/{user_id}', osc_plugin_folder(__FILE__) . 'index.php');
 
 // Admin Login/Logout Bar
 function admin_tools_login() {
@@ -23,9 +23,9 @@ function admin_tools_login() {
             <div id="admin_tools_login_footer">
                 <p>
                         <?php if (!osc_is_web_user_logged_in()) { ?>
-                            <a class="btn-custom" href="<?php echo osc_route_url('admin_tools_login_route', array('user_id' => osc_user_id())); ?>"><?php _e('Admin Login', 'admin_tools_login'); ?> [ <?php echo osc_user_name(); ?> ]</a>
+                            <a class="btn-custom" href="<?php echo osc_route_url('admin_tools_login_login-route', array('user_id' => osc_user_id())); ?>"><?php _e('Admin Login', 'admin_tools_login'); ?> [ <?php echo osc_user_name(); ?> ]</a>
                         <?php } else { ?>
-                            <a class="btn-custom" href="<?php echo osc_route_url('admin_tools_logout_route', array('user_id' => osc_logged_user_id())); ?>"><?php _e('Admin Logout', 'admin_tools_login'); ?></a>
+                            <a class="btn-custom" href="<?php echo osc_route_url('admin_tools_login_logout-route', array('user_id' => osc_logged_user_id())); ?>"><?php _e('Admin Logout', 'admin_tools_login'); ?></a>
                         <?php } ?>
                     <?php } ?>
                 </p>
@@ -36,7 +36,7 @@ osc_add_hook('header', 'admin_tools_login');
 
 // Admin Tools Login/Logout Action
 function admin_tools_login_init() {
-    if( osc_is_admin_user_logged_in() && Params::getParam('route')=='admin_tools_login_route' ) {
+    if( osc_is_admin_user_logged_in() && Params::getParam('route')=='admin_tools_login_login-route' ) {
 
         if(Params::getParam('user_id')!=='') {
             $user = User::newInstance()->findByPrimaryKey( Params::getParam('user_id') );
@@ -58,7 +58,7 @@ function admin_tools_login_init() {
             osc_redirect_to(osc_base_url());
         }
 
-    } elseif( osc_is_admin_user_logged_in() && Params::getParam('route')=='admin_tools_logout_route' ) {
+    } elseif( osc_is_admin_user_logged_in() && Params::getParam('route')=='admin_tools_login_logout-route' ) {
 
         //destroying session
         Session::newInstance()->_drop('userId');
