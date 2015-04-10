@@ -35,7 +35,7 @@ function admin_tools_login() {
 osc_add_hook('header', 'admin_tools_login');
 
 // Admin Tools Login/Logout Action
-function admin_tools_init() {
+function admin_tools_login_init() {
     if( osc_is_admin_user_logged_in() && Params::getParam('route')=='admin_tools_login_route' ) {
 
         if(Params::getParam('user_id')!=='') {
@@ -74,4 +74,4 @@ function admin_tools_init() {
 
     }
 }
-osc_add_hook('init', 'admin_tools_init');
+osc_add_hook('init', 'admin_tools_login_init');
